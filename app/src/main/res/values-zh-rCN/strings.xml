@@ -3,4 +3,5 @@
     <string name="app_name">FeilingXIE\'s Android Lab</string>
     <string name="hello_message">你好！</string>
     <string name="button_message">我是一条信息</string>
+    <string name="editmessage">可任意编辑</string>
 </resources>
