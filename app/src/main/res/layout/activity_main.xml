@@ -23,11 +23,43 @@
     />
 
     <EditText
-        android:id="@+id/myedittext"
+        android:id="@+id/myEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/editmessage"
-        android:hint="@string/hinttext"
+        android:hint="@string/hintText"
+        android:minHeight="48dp"
+        android:text="@string/editmessage" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you drink coffee?"
         />
+
+    <!-- Switch -->
+    <Switch
+        android:id="@+id/switchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBox"
+        android:minHeight="48dp"
+        android:text="Do you drink coffee?" />
+
+    <!-- RadioButton -->
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you drink coffee?"
+        android:layout_below="@id/switchButton"
+        />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/algonquin"
+        />
+
 </LinearLayout>
