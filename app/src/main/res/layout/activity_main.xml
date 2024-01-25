@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="ui.MainActivity">
 
     <TextView
+        android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_message"
-        android:id="@+id/textview"
-    />
+        android:layout_marginBottom="16dp"
+        />
 
     <Button
+        android:id="@+id/mybutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:text="@string/button_message"
-        android:id="@+id/mybutton"
-    />
+        android:text="@string/button_message" />
+
+    <ImageView
+        android:id="@+id/image01"
+        android:layout_width="242dp"
+        android:layout_height="129dp"
+        android:src="@drawable/algonquin"
+        android:layout_marginBottom="16dp"/>
 
     <EditText
         android:id="@+id/myEditText"
@@ -34,8 +40,7 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do you drink coffee?"
-        />
+        android:text="Do you drink coffee?" />
 
     <!-- Switch -->
     <Switch
@@ -51,15 +56,14 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do you drink coffee?"
-        android:layout_below="@id/switchButton"
-        />
+        android:text="Do you drink coffee?" />
 
-    <ImageView
-        android:id="@+id/image"
+
+
+    <ImageButton
+        android:id="@+id/myimagebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/algonquin"
-        />
+        android:src="@drawable/algonquin" />
 
 </LinearLayout>

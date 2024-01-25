@@ -21,10 +21,7 @@ public class MainActivity extends AppCompatActivity
 {
     private ActivityMainBinding variableBinding;
     private MainViewModel model;
-    private View mybutton;
-    private CheckBox checkBox;
-    private Switch switchButton;
-    private RadioButton radioButton;
+
        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +61,16 @@ public class MainActivity extends AppCompatActivity
 
            });
 
+           variableBinding.image01.setOnClickListener(click->
+           {
+               Toast.makeText(MainActivity.this, "ImageView clicked!", Toast.LENGTH_SHORT).show();
+           });
 
-
+           variableBinding.myimagebutton.setOnClickListener(click -> {
+               int width = variableBinding.myimagebutton.getWidth();
+               int height = variableBinding.myimagebutton.getHeight();
+               Toast.makeText(MainActivity.this, "The width = " + width + " and height = " + height, Toast.LENGTH_SHORT).show();
+           });
     }
 
 }
