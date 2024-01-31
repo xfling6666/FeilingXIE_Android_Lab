@@ -66,10 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
+        android:minHeight="48dp"
+        android:nextFocusUp="@id/button2"
         android:text="@string/spin_message"
         app:layout_constraintBottom_toBottomOf="@+id/flagview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/flagview"
-        android:nextFocusUp="@id/button2"/>
+        app:layout_constraintTop_toTopOf="@+id/flagview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
