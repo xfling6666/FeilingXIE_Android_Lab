@@ -2,8 +2,11 @@ package algonquin.cst2335.xie00083;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +19,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.w( "MainActivity", "In onCreate() - Loading Widgets" );
         Log.d( TAG, "Message");
-
+        View loginButton =findViewById(R.id.loginButton);
+        Intent nextPage = new Intent( MainActivity.this, SecondActivity.class);
+        loginButton.setOnClickListener(clk->{
+            EditText editEmail=findViewById(R.id.editEmail);
+            nextPage.putExtra("EmailAddress", editEmail.getText().toString());
+            startActivity(nextPage);});
     }
     @Override
     protected void onStart() {
