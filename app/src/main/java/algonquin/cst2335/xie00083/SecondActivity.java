@@ -86,7 +86,7 @@ public class SecondActivity extends AppCompatActivity {
 
         /*change profile picture*/
 
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         profileImage = findViewById(R.id.imageView);
         // Check if the profile picture exists
         File file = new File(getFilesDir(), filename);
@@ -140,4 +140,14 @@ public class SecondActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Save the phone number to SharedPreferences when the activity goes off the screen
+        SharedPreferences prefs = getSharedPreferences("PhoneNumber", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("PhoneNumber", phoneNumberEditText.getText().toString());
+        editor.apply();
+    }
 }
+

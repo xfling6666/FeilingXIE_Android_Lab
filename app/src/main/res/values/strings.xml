@@ -3,4 +3,8 @@
     <string name="email_message">Enter your email address:</string>
     <string name="password_message">Type your password:</string>
     <string name="login_message">Login</string>
+    <string name="type_email_here">Type email here</string>
+    <string name="change_picture">Change Picture</string>
+    <string name="call_number">Call number</string>
+    <string name="ImageView">TODOImageView</string>
 </resources>
