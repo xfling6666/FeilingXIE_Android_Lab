@@ -12,10 +12,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SecondActivity extends AppCompatActivity {
     @Override
@@ -38,23 +40,33 @@ public class SecondActivity extends AppCompatActivity {
         call.setData(Uri.parse("tel:" + phoneNumber));
         });
 
-        Button picButton=findViewById(R.id.pictureButton);
-        picButton.setOnClickListener((isChecked) -> {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            ActivityResultLauncher<Intent> cameraResult = registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    new ActivityResultCallback<ActivityResult>() {
-                        @Override
-                        public void onActivityResult(ActivityResult result) {
-                            if (result.getResultCode() == Activity.RESULT_OK) {
-                                Intent data = result.getData();
-                                Bitmap thumbnail = data.getParcelableExtra("data");
-                                ImageView profileImage = findViewById(R.id.imageView);
-                                profileImage.setImageBitmap(thumbnail);
+
+        Button picButton = findViewById(R.id.pictureButton);
+        picButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                ActivityResultLauncher<Intent> cameraResult = registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),
+                        new ActivityResultCallback<ActivityResult>() {
+                            @Override
+                            public void onActivityResult(ActivityResult result) {
+                                if (result.getResultCode() == Activity.RESULT_OK) {
+                                    Intent data = result.getData();
+                                    if (data != null && data.hasExtra("data")) {
+                                        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                                        ImageView profileImage = findViewById(R.id.imageView);
+                                        profileImage.setImageBitmap(thumbnail);
+                                    }
+                                }
                             }
-                        }
-                    });
-            cameraResult.launch(cameraIntent);
+                        });
+
+                    cameraResult.launch(cameraIntent);
+            }
         });
+
     }
 }
