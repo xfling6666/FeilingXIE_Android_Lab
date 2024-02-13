@@ -5,67 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SecondActivity"
-    tools:ignore="ExtraText">
+    tools:ignore="ExtraText"
+    tools:targetApi="29">
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="172dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="67dp"
+        app:layout_constraintBottom_toTopOf="@+id/callButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/inputPhone"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/inputPhone"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="151dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="76dp"
+        android:layout_width="144dp"
+        android:layout_height="116dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="190dp"
+        android:autofillHints="input phone number"
         android:ems="10"
         android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/callButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/callButton"
-        android:layout_width="0dp"
+        android:layout_width="100dp"
         android:layout_height="0dp"
-        android:layout_marginTop="157dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="146dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="8dp"
         android:text="Call number"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/inputPhone"
+        app:layout_constraintEnd_toEndOf="@+id/pictureButton"
         app:layout_constraintStart_toEndOf="@+id/inputPhone"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/inputPhone" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="746dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginBottom="214dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPhone"
         app:srcCompat="@android:drawable/ic_menu_camera"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/pictureButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="762dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="11dp"
         android:text="Change Picture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/callButton"
-        app:layout_constraintTop_toBottomOf="@+id/callButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
