@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="Tests in 'algonquin.cst2335.xie00083'">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -17,6 +20,18 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-01-11T00:59:10.923064800Z" />
         </State>
+      </entry>
+      <entry key="mainActivityTest()">
+        <State />
+      </entry>
+      <entry key="testFindMissingUpperCase()">
+        <State />
+      </entry>
+      <entry key="testFindMissinglowercase()">
+        <State />
+      </entry>
+      <entry key="testFindNumber()">
+        <State />
       </entry>
     </value>
   </component>
