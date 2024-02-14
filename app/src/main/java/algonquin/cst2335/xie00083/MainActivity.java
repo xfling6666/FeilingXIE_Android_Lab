@@ -9,17 +9,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.lang.String;
 
-
+/** This is the main activity class for this android application.
+ * @author  Feiling Xie 041104728
+ * @version  1.0
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**This holds a text that  indicates what user needs to do   */
+    TextView tv=null;
+    /**This holds a edit text that asks user to input password   */
+    EditText et=null;
+    /**This holds a button that to be log in  */
+    Button btn=null;
+
+    /** This is the main function to create an activity.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView tv=findViewById(R.id.textView);
-        EditText et=findViewById(R.id.password);
-        Button btn=findViewById(R.id.button);
+        tv=findViewById(R.id.textView);
+        et=findViewById(R.id.password);
+        btn=findViewById(R.id.button);
 
         btn.setOnClickListener( clk->{
             String password =et.getText().toString();
@@ -34,9 +51,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /** This function is to check if the password is complex enough
+     *
+     * @param pw The String object means the password needs to be checked
+     * @param context The context to indicate the application information
+     * @return The result of checking. Return true if the password is complex enough, and false if it is not complex enough.
+     */
     static boolean checkPasswordComplexity(String pw,Context context)
     {
-// Initialize boolean variables
+        // Initialize boolean variables
         boolean foundUpperCase = false;
         boolean foundLowerCase = false;
         boolean foundNumber = false;
@@ -78,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
+    /** This function is to check if a character belongs to a list of special character.
+     *
+     * @param c  The character needs to be checked.
+     * @return The boolean check result, return ture if it is a special charactor.
+     */
     private static boolean isSpecialCharacter(char c) {
         // Check if c is one of: #$%^&*!@?
         String specialCharacters = "#$%^&*!@?";

@@ -30,13 +30,24 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+/** This is the test class for MainActivity class
+ * @author Feiling Xie
+ * @version 1.0
+ */
+
 public class MainActivityTest {
 
+    /**  This hold a test instance about rules to test MainActivity class */
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
+
     @Test
+
+    /** This function is to test if the password meets the all requirements.
+     *
+     */
     public void mainActivityTest() {
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -57,6 +68,10 @@ public class MainActivityTest {
         textView.check(matches(withText("Your password meets the requirements")));
     }
 
+
+    /** This function is to test if the password has an uppercase letter.
+     *
+     */
     @Test
     public void testFindMissingUpperCase() {
         //find the view
@@ -73,6 +88,9 @@ public class MainActivityTest {
         textView.check(matches(withText("You shall not pass!")));
     }
 
+    /** This function is to test if the password has a lowercase letter.
+     *
+     */
     @Test
     public void testFindMissinglowercase() {
         //find the view
@@ -89,6 +107,9 @@ public class MainActivityTest {
         textView.check(matches(withText("You shall not pass!")));
     }
 
+    /** This function is to test if the password has a number.
+     *
+     */
     @Test
     public void testFindMissingNumber() {
         //find the view
@@ -105,6 +126,9 @@ public class MainActivityTest {
         textView.check(matches(withText("You shall not pass!")));
     }
 
+    /** This function is to test if the password has a special character.
+     *
+     */
     @Test
     public void testFindMissingSpecial() {
         //find the view
