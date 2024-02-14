@@ -42,7 +42,6 @@ public class MainActivityTest {
     public ActivityScenarioRule<MainActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(MainActivity.class);
 
-
     @Test
 
     /** This function is to test if the password meets the all requirements.
@@ -80,11 +79,13 @@ public class MainActivityTest {
         appCompatEditText.perform(replaceText("password123#$*"));
 
         //find the button
-        ViewInteraction materialButton = onView(withId(R.id.button));//click the button
+        ViewInteraction materialButton = onView(withId(R.id.button));
+        //click the button
         materialButton.perform(click());
 
         //find the text view
-        ViewInteraction textView = onView(withId(R.id.textView));//check the text
+        ViewInteraction textView = onView(withId(R.id.textView));
+        //check the text
         textView.check(matches(withText("You shall not pass!")));
     }
 
@@ -99,11 +100,13 @@ public class MainActivityTest {
         appCompatEditText.perform(replaceText("P123#$*"));
 
         //find the button
-        ViewInteraction materialButton = onView(withId(R.id.button));//click the button
+        ViewInteraction materialButton = onView(withId(R.id.button));
+        //click the button
         materialButton.perform(click());
 
         //find the text view
-        ViewInteraction textView = onView(withId(R.id.textView));//check the text
+        ViewInteraction textView = onView(withId(R.id.textView));
+        //check the text
         textView.check(matches(withText("You shall not pass!")));
     }
 
@@ -118,11 +121,13 @@ public class MainActivityTest {
         appCompatEditText.perform(replaceText("Pass#$*"));
 
         //find the button
-        ViewInteraction materialButton = onView(withId(R.id.button));//click the button
+        ViewInteraction materialButton = onView(withId(R.id.button));
+        //click the button
         materialButton.perform(click());
 
         //find the text view
-        ViewInteraction textView = onView(withId(R.id.textView));//check the text
+        ViewInteraction textView = onView(withId(R.id.textView));
+        //check the text
         textView.check(matches(withText("You shall not pass!")));
     }
 
@@ -137,11 +142,13 @@ public class MainActivityTest {
         appCompatEditText.perform(replaceText("Pass123"));
 
         //find the button
-        ViewInteraction materialButton = onView(withId(R.id.button));//click the button
+        ViewInteraction materialButton = onView(withId(R.id.button));
+        //click the button
         materialButton.perform(click());
 
         //find the text view
-        ViewInteraction textView = onView(withId(R.id.textView));//check the text
+        ViewInteraction textView = onView(withId(R.id.textView));
+        //check the text
         textView.check(matches(withText("You shall not pass!")));
     }
 
