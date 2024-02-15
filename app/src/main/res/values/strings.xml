@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">FeilingXIE\'s Android Lab</string>
+
     <string name="message" >Type your Password:</string>
     <string name="button_message">Login</string>
+    <string name="hello_message">Hello World!</string>
+
+
 </resources>

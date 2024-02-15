@@ -4,4 +4,5 @@
     <string name="hello_message">你好！</string>
     <string name="button_message">我是一条信息</string>
     <string name="message">请输入密码</string>
+
 </resources>
