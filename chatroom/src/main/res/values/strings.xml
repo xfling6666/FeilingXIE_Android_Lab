@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ChatRoom</string>
+    <string name="send">Send</string>
+    <string name="input">Input</string>
+    <string name="receive">Receive</string>
+    <string name="message_goes_here">Message goes here</string>
+    <string name="time_goes_here">Time goes here</string>
+    <string name="sendImage">sendImage</string>
+    <string name="receiveimage">receiveImage</string>
+</resources>

@@ -3,12 +3,16 @@ plugins {
 }
 
 android {
-    namespace = "algonquin.cst2335.xie00083"
+
+    buildFeatures {
+        viewBinding = true
+    }
+    namespace = "algonquin.cst2335.chatroom"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "algonquin.cst2335.xie00083"
-        minSdk = 22
+        applicationId = "algonquin.cst2335.chatroom"
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -26,15 +30,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
 
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.recyclerview:recyclerview:1.+")
     testImplementation("junit:junit:4.13.2")

@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "FeilingXIE's Android Lab"
 include(":app")
+include(":chatroom")
