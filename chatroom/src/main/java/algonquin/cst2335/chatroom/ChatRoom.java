@@ -1,21 +1,21 @@
 package algonquin.cst2335.chatroom;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.zip.Inflater;
 
 import algonquin.cst2335.chatroom.databinding.ActivityChatRoomBinding;
 import algonquin.cst2335.chatroom.databinding.ReceiveMessageBinding;
@@ -46,7 +46,7 @@ public class ChatRoom extends AppCompatActivity
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         binding.sendButton.setOnClickListener(click -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM HH-mm-ss");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM HH-mm-ss");
             String currentTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentTime, true);
@@ -57,7 +57,7 @@ public class ChatRoom extends AppCompatActivity
         });
 
         binding.receiveButton.setOnClickListener(click -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM HH-mm-ss");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM HH-mm-ss");
             String currentDateandTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentDateandTime, false);
@@ -108,7 +108,7 @@ public class ChatRoom extends AppCompatActivity
 
     }
 
-    class MyRowHolder extends RecyclerView.ViewHolder {
+    static class MyRowHolder extends RecyclerView.ViewHolder {
 
         TextView messageText;
         TextView timeText;
