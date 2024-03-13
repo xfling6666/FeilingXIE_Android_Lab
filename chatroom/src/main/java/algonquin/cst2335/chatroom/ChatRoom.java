@@ -36,6 +36,13 @@ public class ChatRoom extends AppCompatActivity
         chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
       //  messages = chatModel.messages.getValue();
 
+        if (chatModel.messages.getValue() == null) {
+            messages = new ArrayList<>();
+            chatModel.messages.setValue(messages);
+        } else {
+            messages = chatModel.messages.getValue();
+        }
+
         if (messages == null) {
             chatModel.messages.postValue(chatModel.messages.getValue());
         }
