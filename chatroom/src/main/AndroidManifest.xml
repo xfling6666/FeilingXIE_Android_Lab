@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeilingXIEsAndroidLab">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatRoom"
             android:exported="true">
             <intent-filter>

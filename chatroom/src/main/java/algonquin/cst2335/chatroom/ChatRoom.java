@@ -57,7 +57,7 @@ public class ChatRoom extends AppCompatActivity
         });
 
         binding.receiveButton.setOnClickListener(click -> {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd-MMM-yyyy hh-mm-ss a");
+            SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM HH-mm-ss");
             String currentDateandTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentDateandTime, false);

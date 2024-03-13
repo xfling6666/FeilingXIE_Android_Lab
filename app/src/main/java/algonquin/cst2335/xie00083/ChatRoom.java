@@ -62,7 +62,7 @@ public class ChatRoom extends AppCompatActivity
             {
               return messages.size();
             }
-            public int intgetItemViewType(int position)
+            public int getItemViewType(int position)
             {
                 return 0;
             }
