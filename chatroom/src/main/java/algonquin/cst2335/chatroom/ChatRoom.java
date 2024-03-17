@@ -155,11 +155,14 @@ public class ChatRoom extends AppCompatActivity
                         .setNegativeButton("No", (dialog, cl) -> { })
                         .setPositiveButton("Yes", (dialog, cl) -> {
                             ChatMessage chatMessage = messages.get(position);
-                            //ChatMessage removedMessage = mDAO.getMessageById(chatMessage.getId());
+
                             messages.remove(position);
                             myAdapter.notifyItemRemoved(position);
-                           // Executor thread = Executors.newSingleThreadExecutor();
-                           // thread.execute(() -> mDAO.deleteMessage(removedMessage));
+                            Executor thread = Executors.newSingleThreadExecutor();
+                            thread.execute(() -> {
+                           ChatMessage removedMessage = mDAO.getMessageByContent(chatMessage.getMessage());
+                            mDAO.deleteMessage(removedMessage);
+                                });
                             Snackbar.make(messageText, "Message deleted", Snackbar.LENGTH_LONG)
                                         .setAction("Undo", click ->
                                         {  messages.add(position, chatMessage);
