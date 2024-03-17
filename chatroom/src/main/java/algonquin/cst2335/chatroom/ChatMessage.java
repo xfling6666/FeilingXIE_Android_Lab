@@ -17,8 +17,10 @@ public class ChatMessage
     @PrimaryKey(autoGenerate=true)
     @ColumnInfo(name="id")
     public int id;
+    public ChatMessage() {
+    }
 
-    ChatMessage(String m, String t, boolean sent)
+    public ChatMessage(String m, String t, boolean sent)
     {
         message = m;
         timeSent = t;

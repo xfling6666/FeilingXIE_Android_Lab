@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import algonquin.cst2335.chatroom.databinding.ActivityChatRoomBinding;
 import algonquin.cst2335.chatroom.databinding.ReceiveMessageBinding;
@@ -25,7 +29,6 @@ public class ChatRoom extends AppCompatActivity
 {
     ActivityChatRoomBinding binding;
     ChatRoomViewModel chatModel ;
-
     private RecyclerView.Adapter myAdapter;
     ArrayList<ChatMessage> messages= new ArrayList<>();
 
@@ -33,6 +36,11 @@ public class ChatRoom extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        Room Room = null;
+        MessageDatabase db= Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").build();
+        ChatMessageDAO mDAO= db.cmDAO();
+        
         chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
       //  messages = chatModel.messages.getValue();
 
@@ -43,8 +51,17 @@ public class ChatRoom extends AppCompatActivity
             messages = chatModel.messages.getValue();
         }
 
-        if (messages == null) {
+        if (messages == null)
+        {
             chatModel.messages.postValue(chatModel.messages.getValue());
+            chatModel.messages.setValue(messages = new ArrayList<>());
+
+            Executor thread = Executors.newSingleThreadExecutor();
+            thread.execute(() ->
+            {
+                messages.addAll(mDAO.getAllMessages()); //Once you get the data from database
+                runOnUiThread(()-> binding.recyclerView.setAdapter( myAdapter)); //You can then load the RecyclerView
+            });
         }
 
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
@@ -57,8 +74,18 @@ public class ChatRoom extends AppCompatActivity
             String currentTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentTime, true);
-            messages.add(newMessage);
-            myAdapter.notifyItemInserted(messages.size()-1);
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                // 在新线程中执行数据库插入操作
+                long messageId = mDAO.insertMessage(newMessage);
+                runOnUiThread(() -> {
+                if (messageId != -1)
+            {
+                messages.add(newMessage);
+                myAdapter.notifyItemInserted(messages.size() - 1);
+            }
+                });
+            });
             //clear the previous text:
             binding.textInput.setText("");
         });
@@ -68,8 +95,18 @@ public class ChatRoom extends AppCompatActivity
             String currentDateandTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentDateandTime, false);
-            messages.add(newMessage);
-            myAdapter.notifyItemInserted(messages.size()-1);
+            Executor executor = Executors.newSingleThreadExecutor();
+            executor.execute(() -> {
+                // 在新线程中执行数据库插入操作
+                long messageId = mDAO.insertMessage(newMessage);
+                runOnUiThread(() -> {
+                    if (messageId != -1)
+                    {
+                        messages.add(newMessage);
+                        myAdapter.notifyItemInserted(messages.size() - 1);
+                    }
+                });
+            });
             //clear the previous text:
             binding.textInput.setText("");
         });
@@ -115,14 +152,29 @@ public class ChatRoom extends AppCompatActivity
 
     }
 
-    static class MyRowHolder extends RecyclerView.ViewHolder {
+    class MyRowHolder extends RecyclerView.ViewHolder {
 
         TextView messageText;
         TextView timeText;
+        int position;
+
+        RecyclerView.Adapter<RecyclerView.ViewHolder> adt = null;
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
+            AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
+            itemView.setOnClickListener(clk ->{
+               position = getAbsoluteAdapterPosition();
+            });
             messageText =itemView.findViewById(R.id.message);
             timeText = itemView.findViewById(R.id.time);
+            builder.setMessage("Do you want to delete the message: " + messageText.getText())
+                   .setTitle("Question:")
+                   .setNegativeButton("No",(dialog,cl)->{})
+                    .setPositiveButton("Yes",(dialog,cl)->{
+                        messages.remove(position);
+                        adt.notifyItemRemoved(position);
+                    })
+                    .create().show();
         }
     }
 }
