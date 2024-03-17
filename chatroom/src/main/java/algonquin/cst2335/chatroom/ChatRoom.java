@@ -85,9 +85,9 @@ public class ChatRoom extends AppCompatActivity
 
         binding.receiveButton.setOnClickListener(click -> {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("EE, dd-MMM HH-mm-ss");
-            String currentDateandTime = sdf.format(new Date());
+            String currentDateAndTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
-            ChatMessage newMessage = new ChatMessage(typedMessage, currentDateandTime, false);
+            ChatMessage newMessage = new ChatMessage(typedMessage, currentDateAndTime, false);
             messages.add(newMessage);
             Executor thread = Executors.newSingleThreadExecutor();
             thread.execute(() -> mDAO.insertMessage(newMessage));
@@ -144,28 +144,31 @@ public class ChatRoom extends AppCompatActivity
 
         public MyRowHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(clk ->{
-                int position = getAbsoluteAdapterPosition();
-                AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
-            builder.setMessage("Do you want to delete the message: " + messageText.getText())
-                   .setTitle("Question:")
-                   .setNegativeButton("No",(dialog,cl)->{})
-                    .setPositiveButton("Yes",(dialog,cl)->{
-                        ChatMessage removedMessage = messages.get(position);
-                        messages.remove(position);
-                        myAdapter.notifyItemRemoved(position);
-
-                        Snackbar.make(messageText,"You deleted message #"+position, Snackbar.LENGTH_LONG)
-                                .setAction("undo",click ->{
-                                    messages.add(position,removedMessage);
-                                    myAdapter.notifyItemInserted(position);
-                                })
-                                .show();
-                    })
-                    .create().show();
-            });
-            messageText =itemView.findViewById(R.id.message);
+            messageText = itemView.findViewById(R.id.message);
             timeText = itemView.findViewById(R.id.time);
+            itemView.setOnClickListener(clk ->
+            {
+                int position = getAbsoluteAdapterPosition();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+                builder.setMessage("Do you want to delete the message: " + messageText.getText())
+                        .setTitle("Question:")
+                        .setNegativeButton("No", (dialog, cl) -> { })
+                        .setPositiveButton("Yes", (dialog, cl) -> {
+                            ChatMessage chatMessage = messages.get(position);
+                            //ChatMessage removedMessage = mDAO.getMessageById(chatMessage.getId());
+                            messages.remove(position);
+                            myAdapter.notifyItemRemoved(position);
+                           // Executor thread = Executors.newSingleThreadExecutor();
+                           // thread.execute(() -> mDAO.deleteMessage(removedMessage));
+                            Snackbar.make(messageText, "Message deleted", Snackbar.LENGTH_LONG)
+                                        .setAction("Undo", click ->
+                                        {  messages.add(position, chatMessage);
+                                            myAdapter.notifyItemInserted(position);
+                                          //  mDAO.insertMessage(removedMessage);
+                                        })
+                                        .show();
+                        })
+                        .create().show();
+            });
         }
-    }
-}
+    }}
