@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +75,9 @@ public class ChatRoom extends AppCompatActivity
             String currentTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentTime, true);
-                    messages.add(newMessage);
+            messages.add(newMessage);
+            Executor thread = Executors.newSingleThreadExecutor();
+            thread.execute(() -> mDAO.insertMessage(newMessage));
                 myAdapter.notifyItemInserted(messages.size() - 1);
             //clear the previous text:
             binding.textInput.setText("");
@@ -84,8 +88,10 @@ public class ChatRoom extends AppCompatActivity
             String currentDateandTime = sdf.format(new Date());
             String typedMessage = binding.textInput.getText().toString();
             ChatMessage newMessage = new ChatMessage(typedMessage, currentDateandTime, false);
-                        messages.add(newMessage);
-                        myAdapter.notifyItemInserted(messages.size() - 1);
+            messages.add(newMessage);
+            Executor thread = Executors.newSingleThreadExecutor();
+            thread.execute(() -> mDAO.insertMessage(newMessage));
+            myAdapter.notifyItemInserted(messages.size() - 1);
             //clear the previous text:
             binding.textInput.setText("");
         });
@@ -145,8 +151,16 @@ public class ChatRoom extends AppCompatActivity
                    .setTitle("Question:")
                    .setNegativeButton("No",(dialog,cl)->{})
                     .setPositiveButton("Yes",(dialog,cl)->{
+                        ChatMessage removedMessage = messages.get(position);
                         messages.remove(position);
                         myAdapter.notifyItemRemoved(position);
+
+                        Snackbar.make(messageText,"You deleted message #"+position, Snackbar.LENGTH_LONG)
+                                .setAction("undo",click ->{
+                                    messages.add(position,removedMessage);
+                                    myAdapter.notifyItemInserted(position);
+                                })
+                                .show();
                     })
                     .create().show();
             });
