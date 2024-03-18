@@ -13,8 +13,8 @@ public interface ChatMessageDAO
      long insertMessage(ChatMessage m);
     @Query("Select * from ChatMessage")
      List<ChatMessage> getAllMessages();
-    @Delete
-    void deleteMessage(ChatMessage m);
+    @Query("Delete from chatMessage WHERE id = :messageId")
+    void deleteMessage(int messageId);
 
     @Query("SELECT * FROM ChatMessage WHERE message = :message")
     ChatMessage getMessageByContent(String message);

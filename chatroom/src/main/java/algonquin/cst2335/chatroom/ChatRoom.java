@@ -77,7 +77,10 @@ public class ChatRoom extends AppCompatActivity
             ChatMessage newMessage = new ChatMessage(typedMessage, currentTime, true);
             messages.add(newMessage);
             Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() -> mDAO.insertMessage(newMessage));
+            thread.execute(() -> {
+                long newID= mDAO.insertMessage(newMessage);
+                newMessage.setId((int)newID);
+            });
                 myAdapter.notifyItemInserted(messages.size() - 1);
             //clear the previous text:
             binding.textInput.setText("");
@@ -90,7 +93,10 @@ public class ChatRoom extends AppCompatActivity
             ChatMessage newMessage = new ChatMessage(typedMessage, currentDateAndTime, false);
             messages.add(newMessage);
             Executor thread = Executors.newSingleThreadExecutor();
-            thread.execute(() -> mDAO.insertMessage(newMessage));
+            thread.execute(() -> {
+                long newID= mDAO.insertMessage(newMessage);
+                newMessage.setId((int)newID);
+            });
             myAdapter.notifyItemInserted(messages.size() - 1);
             //clear the previous text:
             binding.textInput.setText("");
@@ -155,13 +161,11 @@ public class ChatRoom extends AppCompatActivity
                         .setNegativeButton("No", (dialog, cl) -> { })
                         .setPositiveButton("Yes", (dialog, cl) -> {
                             ChatMessage chatMessage = messages.get(position);
-
                             messages.remove(position);
                             myAdapter.notifyItemRemoved(position);
                             Executor thread = Executors.newSingleThreadExecutor();
                             thread.execute(() -> {
-                           ChatMessage removedMessage = mDAO.getMessageByContent(chatMessage.getMessage());
-                            mDAO.deleteMessage(removedMessage);
+                            mDAO.deleteMessage(chatMessage.getId());
                                 });
                             Snackbar.make(messageText, "Message deleted", Snackbar.LENGTH_LONG)
                                         .setAction("Undo", click ->
