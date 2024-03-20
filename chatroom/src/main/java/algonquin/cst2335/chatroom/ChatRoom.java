@@ -3,9 +3,12 @@ package algonquin.cst2335.chatroom;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -43,6 +46,7 @@ public class ChatRoom extends AppCompatActivity
 
         db= Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").build();
         mDAO= db.cmDAO();
+
         
         chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
       //  messages = chatModel.messages.getValue();
@@ -67,6 +71,7 @@ public class ChatRoom extends AppCompatActivity
 
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setSupportActionBar(binding.myToolbar);
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -142,6 +147,41 @@ public class ChatRoom extends AppCompatActivity
         });
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.item_1:
+                // Put your code here to handle item_1 selection
+                // For example, show an alert dialog to confirm deletion
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Do you want to delete all chat records?")
+                        .setTitle("Delete Chat Records")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            // Call the method to delete all chat records
+                            messages.clear();
+                            myAdapter.notifyDataSetChanged();
+                        })
+                        .setNegativeButton("No", (dialog, which) -> {
+                            // User cancelled the deletion, do nothing
+                        })
+                        .show();
+                return true;
+            case R.id.item_2:
+            Toast.makeText(this, "Version 1.0, created by Feiling Xie", Toast.LENGTH_SHORT).show();
+             return true;
+             default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     class MyRowHolder extends RecyclerView.ViewHolder {
 
@@ -164,9 +204,7 @@ public class ChatRoom extends AppCompatActivity
                             messages.remove(position);
                             myAdapter.notifyItemRemoved(position);
                             Executor thread = Executors.newSingleThreadExecutor();
-                            thread.execute(() -> {
-                            mDAO.deleteMessage(chatMessage.getId());
-                                });
+                            thread.execute(() -> mDAO.deleteMessage(chatMessage.getId()));
                             Snackbar.make(messageText, "Message deleted", Snackbar.LENGTH_LONG)
                                         .setAction("Undo", click ->
                                         {  messages.add(position, chatMessage);
